@@ -1,10 +1,19 @@
 cmake_minimum_required(VERSION 3.10)
-project(MeuProjetoC C)
+project(LaboratorioFATEC C)
 
 set(CMAKE_C_STANDARD 11)
 
-# Adicione todos os novos arquivos .c dentro deste comando:
-add_executable(meu_programa 
-    main.c 
+# Cria o executável do Exercício 1
+add_executable(exe1 
+    exercicio1/main.c
+)
 
+# Cria o executável do Exercício 2
+add_executable(exe2 
+    exercicio2/main.c
+)
+
+# Cria o executável do Exercício 3
+add_executable(exe3 
+    exercicio3/main.c
 )

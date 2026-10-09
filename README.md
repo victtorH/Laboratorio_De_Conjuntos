@@ -36,14 +36,27 @@ Se esta é a sua primeira vez mexendo no projeto, siga estes passos no seu termi
 O fluxo de desenvolvimento foi desenhado para atualizar suas modificações instantaneamente:
 
 ### Passo 1: Edite o Código
-Abra a pasta do projeto no seu editor favorito (VS Code, CLion, Notepad++, etc.) e altere o arquivo `main.c` (ou adicione novos arquivos). Salve o arquivo normalmente na sua máquina física.
+Abra a pasta do projeto no seu editor favorito (VS Code, CLion, Notepad++, etc.) e altere o arquivo `main.c` (ou adicione novos arquivos/exercícios). Salve o arquivo normalmente na sua máquina física.
 
 ### Passo 2: Compile e Execute no Docker
-Para testar suas alterações, execute o comando abaixo no terminal da sua máquina:
 
-```bash
-docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./meu_programa"
-```
+Como o projeto está dividido em exercícios independentes, você pode compilar e rodar cada um individualmente mudando o nome do executável no final do comando:
+
+* **Para rodar o Exercício 1:**
+  ```bash
+  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe1"
+  ```
+
+* **Para rodar o Exercício 2:**
+  ```bash
+  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe2"
+  ```
+
+* **Para rodar o Exercício 3:**
+  ```bash
+  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe3"
+  ```
+
 
 **O que este comando faz automaticamente?**
 * Entra no ambiente isolado do Docker.
