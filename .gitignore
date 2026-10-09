@@ -1,0 +1,27 @@
+# === Compilação e Artefatos do CMake (Docker) ===
+build/
+.cmake/
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+
+# === Executáveis Gerados ===
+*.exe
+*.out
+*.app
+meu_programa
+
+# === Arquivos Ocultos do Sistema Operacional ===
+.DS_Store
+Thumbs.db
+
+# === Configurações de IDEs (Opcional, mas recomendado) ===
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
