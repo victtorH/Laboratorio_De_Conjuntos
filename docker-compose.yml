@@ -1,0 +1,10 @@
+name: laboratorio_de_conjuntos
+
+services:
+  compiler:
+    build: .
+    image: ambiente_compilacao_c
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
