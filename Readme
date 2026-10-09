@@ -1,1 +1,70 @@
+# 🚀 Projeto C Portável com Docker
 
+Este projeto foi configurado para rodar de forma idêntica em qualquer sistema operacional (**Windows, macOS ou Linux**), sem a necessidade de instalar compiladores de C (como GCC ou Clang) localmente na sua máquina física. Tudo roda isolado dentro de um container Docker.
+
+---
+
+## 🛠️ Pré-requisitos Obrigatórios
+
+Antes de começar, você precisa ter apenas duas ferramentas instaladas na sua máquina física:
+1. **Git** (Para clonar e gerenciar o código).
+2. **Docker Desktop** (Essencial para rodar o ambiente de desenvolvimento). 
+   * *Certifique-se de abrir o Docker Desktop antes de executar os comandos abaixo.*
+
+---
+
+## 💻 Como Iniciar o Projeto na sua Máquina
+
+Se esta é a sua primeira vez mexendo no projeto, siga estes passos no seu terminal:
+
+1. **Clone o repositório:**
+   ```bash
+   git clone <URL_DO_SEU_REPOSITORIO>
+   cd Laboratorio_De_Conjuntos
+   ```
+
+2. **Construa o ambiente do Docker:**
+   ```bash
+   docker compose build
+   ```
+   *(Este comando pode demorar alguns minutos na primeira vez, pois ele vai baixar as ferramentas de C corretas estruturadas pelo time).*
+
+---
+
+## 🔄 Como Desenvolver e Compilar o Código
+
+O fluxo de desenvolvimento foi desenhado para atualizar suas modificações instantaneamente:
+
+### Passo 1: Edite o Código
+Abra a pasta do projeto no seu editor favorito (VS Code, CLion, Notepad++, etc.) e altere o arquivo `main.c` (ou adicione novos arquivos). Salve o arquivo normalmente na sua máquina física.
+
+### Passo 2: Compile e Execute no Docker
+Para testar suas alterações, execute o comando abaixo no terminal da sua máquina:
+
+```bash
+docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./meu_programa"
+```
+
+**O que este comando faz automaticamente?**
+* Entra no ambiente isolado do Docker.
+* Cria a pasta de compilação (`build`) caso ela não exista.
+* Lê as alterações que você acabou de fazer no seu código-fonte local.
+* Compila o código C atualizado com o CMake.
+* Executa o seu programa e imprime o resultado direto na tela do seu terminal.
+* Apaga o container temporário após o uso (`--rm`), não acumulando lixo na sua máquina.
+
+---
+
+## 🚀 Fluxo de Trabalho com Git (Push e Merge)
+
+O Docker **não** interfere em nada no fluxo tradicional do Git. Como os arquivos de código ficam na sua máquina real, você usa os comandos do Git normalmente:
+
+1. Crie uma branch para a sua tarefa: `git checkout -b minha-feature`
+2. Faça as alterações no código e teste com o comando de compilação do Docker acima.
+3. Quando tudo estiver funcionando sem erros:
+   ```bash
+   git add .
+   git commit -m "feat: adiciona nova funcionalidade em C"
+   git push origin minha-feature
+   ```
+4. Abra o **Pull Request** no GitHub e solicite o **Merge** para o time.
