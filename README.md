@@ -36,7 +36,19 @@ Se esta é a sua primeira vez mexendo no projeto, siga estes passos no seu termi
 O fluxo de desenvolvimento foi desenhado para atualizar suas modificações instantaneamente:
 
 ### Passo 1: Edite o Código
-Abra a pasta do projeto no seu editor favorito (VS Code, CLion, Notepad++, etc.) e altere o arquivo `main.c` (ou adicione novos arquivos/exercícios). Salve o arquivo normalmente na sua máquina física.
+Abra a pasta do projeto no seu editor favorito (VS Code, CLion, Notepad++, etc.) e altere ou adicione novos arquivos dentro da pasta do exercício em que você está trabalhando (ex: `exercicio1/`). Salve os arquivos normalmente na sua máquina física.
+
+⚠️ **IMPORTANTE (Se criar novos arquivos .c):** Toda vez que você criar um novo arquivo de código (ex: `funcoes.c`), você precisa avisar o sistema de compilação. Abra o arquivo **`CMakeLists.txt`** na raiz do projeto e adicione o caminho do novo arquivo dentro do bloco correspondente ao seu executável. Exemplo:
+
+```cmake
+add_executable(exe1 
+    exercicio1/main.c 
+    exercicio1/exercicio1.c
+    exercicio1/funcoes.c  # <-- Adicione o novo arquivo aqui!
+)
+```
+
+---
 
 ### Passo 2: Compile e Execute no Docker
 
@@ -57,27 +69,26 @@ Como o projeto está dividido em exercícios independentes, você pode compilar 
   docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe3"
   ```
 
-
 **O que este comando faz automaticamente?**
 * Entra no ambiente isolado do Docker.
 * Cria a pasta de compilação (`build`) caso ela não exista.
-* Lê as alterações que você acabou de fazer no seu código-fonte local.
-* Compila o código C atualizado com o CMake.
-* Executa o seu programa e imprime o resultado direto na tela do seu terminal.
+* Lê as alterações que você acabou de fazer nas pastas dos exercícios.
+* Compila o código C atualizado utilizando o CMake (versão padrão C11).
+* Executa o exercício específico escolhido e imprime o resultado direto na tela do seu terminal.
 * Apaga o container temporário após o uso (`--rm`), não acumulando lixo na sua máquina.
 
 ---
 
 ## 🚀 Fluxo de Trabalho com Git (Push e Merge)
 
-O Docker **não** interfere em nada no fluxo tradicional do Git. Como os arquivos de código ficam na sua máquina real, você usa os comandos do Git normalmente:
+O Docker **não** interfere em nada no fluxo tradicional do Git. Como os arquivos de código ficam na sua máquina real, nós usamos o padrão profissional de branches por funcionalidade/aluno (`feat/nome/tarefa`):
 
-1. Crie uma branch para a sua tarefa: `git checkout -b minha-feature`
+1. Crie uma branch para o seu exercício: `git checkout -b feat/seu-nome/exercicio-X`
 2. Faça as alterações no código e teste com o comando de compilação do Docker acima.
 3. Quando tudo estiver funcionando sem erros:
    ```bash
    git add .
    git commit -m "feat: adiciona nova funcionalidade em C"
-   git push origin minha-feature
+   git push origin feat/seu-nome/exercicio-X
    ```
-4. Abra o **Pull Request** no GitHub e solicite o **Merge** para o time.
+4. Abra o **Pull Request** no GitHub para que o seu parceiro de grupo revise e aprove o **Merge** na branch `main`.
