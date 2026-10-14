@@ -14,6 +14,9 @@ add_executable(exe1
 # Cria o executável do Exercício 2
 add_executable(exe2 
     exercicio2/main.c
+    exercicio2/familias.c
+    exercicio2/terminal_ui.c
+
 )
 
 # Cria o executável do Exercício 3
