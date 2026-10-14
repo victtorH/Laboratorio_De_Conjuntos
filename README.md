@@ -1,94 +1,161 @@
-# 🚀 Projeto C Portável com Docker
-
-Este projeto foi configurado para rodar de forma idêntica em qualquer sistema operacional (**Windows, macOS ou Linux**), sem a necessidade de instalar compiladores de C (como GCC ou Clang) localmente na sua máquina física. Tudo roda isolado dentro de um container Docker.
-
----
-
-## 🛠️ Pré-requisitos Obrigatórios
-
-Antes de começar, você precisa ter apenas duas ferramentas instaladas na sua máquina física:
-1. **Git** (Para clonar e gerenciar o código).
-2. **Docker Desktop** (Essencial para rodar o ambiente de desenvolvimento). 
-   * *Certifique-se de abrir o Docker Desktop antes de executar os comandos abaixo.*
+# Laboratório de Conjuntos e Conjuntos Numéricos
+**Curso:** Desenvolvimento de Software Multiplataforma - FATEC Osasco  
+**Disciplina:** Matemática para Computação  
+**Integrantes:** Matheus Santos, Victor Hugo
 
 ---
 
-## 💻 Como Iniciar o Projeto na sua Máquina
+## 🛠️ Tecnologias e Ambiente
+- **Linguagem:** C (Padrão C11)
+- **Compilação e Execução:** Docker e CMake
 
-Se esta é a sua primeira vez mexendo no projeto, siga estes passos no seu terminal:
+### Como Preparar e Executar os Exercícios:
+```bash
+# -- Preparando o Ambiente --
+git clone [https://github.com/victtorH/Laboratorio_De_Conjuntos.git](https://github.com/victtorH/Laboratorio_De_Conjuntos.git)
+cd Laboratorio_De_Conjuntos
 
-1. **Clone o repositório:**
-   ```bash
-   git clone <URL_DO_SEU_REPOSITORIO>
-   cd Laboratorio_De_Conjuntos
-   ```
+docker compose build
 
-2. **Construa o ambiente do Docker:**
-   ```bash
-   docker compose build
-   ```
-   *(Este comando pode demorar alguns minutos na primeira vez, pois ele vai baixar as ferramentas de C corretas estruturadas pelo time).*
+# -- Executando os Exercicios --
 
----
+# Exercício 1
+docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe1"
 
-## 🔄 Como Desenvolver e Compilar o Código
+# Exercício 2
+docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe2"
 
-O fluxo de desenvolvimento foi desenhado para atualizar suas modificações instantaneamente:
+# Exercício 3
+docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe3"
 
-### Passo 1: Edite o Código
-Abra a pasta do projeto no seu editor favorito (VS Code, CLion, Notepad++, etc.) e altere ou adicione novos arquivos dentro da pasta do exercício em que você está trabalhando (ex: `exercicio1/`). Salve os arquivos normalmente na sua máquina física.
-
-⚠️ **IMPORTANTE (Se criar novos arquivos .c):** Toda vez que você criar um novo arquivo de código (ex: `funcoes.c`), você precisa avisar o sistema de compilação. Abra o arquivo **`CMakeLists.txt`** na raiz do projeto e adicione o caminho do novo arquivo dentro do bloco correspondente ao seu executável. Exemplo:
-
-```cmake
-add_executable(exe1 
-    exercicio1/main.c 
-    exercicio1/exercicio1.c
-    exercicio1/funcoes.c  # <-- Adicione o novo arquivo aqui!
-)
 ```
 
 ---
 
-### Passo 2: Compile e Execute no Docker
+## 📌 Parte 1: Teoria dos Conjuntos (Básico)
 
-Como o projeto está dividido em exercícios independentes, você pode compilar e rodar cada um individualmente mudando o nome do executável no final do comando:
+*Responsável: Victor Hugo*
 
-* **Para rodar o Exercício 1:**
-  ```bash
-  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe1"
-  ```
+### Decisões de Implementação
 
-* **Para rodar o Exercício 2:**
-  ```bash
-  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe2"
-  ```
+*(Breve resumo técnico das funções criadas e modularização)*
 
-* **Para rodar o Exercício 3:**
-  ```bash
-  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe3"
-  ```
+### Prints de Execução e Casos de Borda
 
-**O que este comando faz automaticamente?**
-* Entra no ambiente isolado do Docker.
-* Cria a pasta de compilação (`build`) caso ela não exista.
-* Lê as alterações que você acabou de fazer nas pastas dos exercícios.
-* Compila o código C atualizado utilizando o CMake (versão padrão C11).
-* Executa o exercício específico escolhido e imprime o resultado direto na tela do seu terminal.
-* Apaga o container temporário após o uso (`--rm`), não acumulando lixo na sua máquina.
+#### Caso Geral: Menu e Operações Principais
+
+> **[PRINT OBRIGATÓRIO AQUI]**
+> Tirar print do menu interativo executando operações gerais (União, Interseção, Diferença, Cardinalidade).
+> Salvar como: `docs/img/exe1_caso_geral.png`
+
+#### Caso de Teste 1: Conjunto Vazio (A = ∅, B = {1, 2})
+
+> **[PRINT OBRIGATÓRIO AQUI]**
+> Tirar print da execução mostrando que A é vazio, A ∪ B = {1, 2}, A ∩ B = ∅ e A ⊆ B é verdadeiro.
+> Salvar como: `docs/img/exe1_vazio.png`
+
+#### Caso de Teste 2: Conjuntos Iguais (A = B = {1, 2, 3})
+
+> **[PRINT OBRIGATÓRIO AQUI]**
+> Tirar print mostrando A - B = ∅ e a inclusão (A ⊆ B verdadeiro, A ⊂ B falso).
+> Salvar como: `docs/img/exe1_iguais.png`
+
+#### Caso de Teste 3: Conjuntos Disjuntos (A = {1, 2}, B = {3, 4})
+
+> **[PRINT OBRIGATÓRIO AQUI]**
+> Tirar print mostrando A ∩ B = ∅ e a união completa sem repetições.
+> Salvar como: `docs/img/exe1_disjuntos.png`
+
+#### Caso de Teste 4: Elementos Repetidos na Entrada (A = {1, 1, 1, 2})
+
+> **[PRINT OBRIGATÓRIO AQUI]**
+> Tirar print comprovando que as duplicatas foram descartadas, resultando em |A| = 2.
+> Salvar como: `docs/img/exe1_repetidos.png`
 
 ---
 
-## 🚀 Fluxo de Trabalho com Git (Push e Merge)
+## 📌 Parte 2: Conjuntos Numéricos (Intermediário)
 
-O Docker **não** interfere em nada no fluxo tradicional do Git. Como os arquivos de código ficam na sua máquina real, nós usamos o padrão profissional de branches por funcionalidade/aluno (`feat/nome/tarefa`):
+*Responsável: Victor Hugo*
 
-1. Crie uma branch para o seu exercício: `git checkout -b feat/seu-nome/exercicio-X`
-2. Faça as alterações no código e teste com o comando de compilação do Docker acima.
-3. Quando tudo estiver funcionando sem erros:
-   ```bash
-   git add .
-   git commit -m "feat: adiciona nova funcionalidade em C"
-   git push origin feat/seu-nome/exercicio-X
-   ```
-4. Abra o **Pull Request** no GitHub para que o seu parceiro de grupo revise e aprove o **Merge** na branch `main`.
+### Decisões de Implementação
+
+*(Breve resumo da lógica de parsing, identificação de tipos e fração geratriz)*
+
+### Prints de Execução
+
+#### Teste 1: Dízima Periódica e Fração Geratriz (Entrada: 1,2(5))
+
+> **[PRINT OBRIGATÓRIO AQUI]**
+> Tirar print do cálculo da fração geratriz 113/90 e da classificação nos conjuntos Q e R.
+> Salvar como: `docs/img/exe2_dizima.png`
+
+#### Teste 2: Inteiros Negativos e Frações (-3, 3/4, -5/2, 6/3)
+
+> **[PRINT OBRIGATÓRIO AQUI]**
+> Tirar print classificando números negativos (Z, Q, R) e frações irredutíveis/redutíveis.
+> Salvar como: `docs/img/exe2_fracoes.png`
+
+#### Teste 3: Raízes Exatas e Irracionais (√9 e √2)
+
+> **[PRINT OBRIGATÓRIO AQUI]**
+> Tirar print classificando √9 como natural/inteiro (3) e √2 como irracional (I, R).
+> Salvar como: `docs/img/exe2_raizes.png`
+
+---
+
+## 📌 Parte 3: Sistema de Recomendação (Índice de Jaccard)
+
+*Responsável: Matheus da Silva Santos*
+
+### Decisões de Implementação
+
+* **Modelagem Matemática:** Perfis de usuário representados como conjuntos finitos de texto. A regra formal de unicidade foi garantida verificando a pertinência antes de cada inserção.
+
+
+* **Estrutura de Dados:** Utilização de vetores estáticos em memória local (`struct Conjunto`) para evitar vazamentos de memória e manter o algoritmo direto e seguro.
+* **Métrica Aplicada:** Fórmula do Índice de Jaccard:
+
+$$\text{Jaccard}(A, B) = \frac{\vert{}A \cap B\vert{}}{\vert{}A \cup B\vert{}}$$
+
+
+
+
+### Demonstração de Execução
+
+![Print do Resultado](imgs/exe3_jaccard.png)
+
+### Saída da Execução (Log Oficial)
+
+```text
+=== EXERCICIO 3: RECOMENDACAO POR INTERESSES (JACCARD) ===
+
+[Entrada - Interesses]
+- Ana   { rock, jazz, cinema, games } (4 itens)
+- Bia   { jazz, cinema, series, viagens } (4 itens)
+- Caio  { games, tecnologia, cinema } (3 itens)
+
+----------------------------------------------------------
+[Calculos de Afinidade]
+
+Par 1: Ana e Bia
+  Intersecao: { jazz, cinema } -> |A ∩ B| = 2
+  Uniao:      { rock, jazz, cinema, games, series, viagens } -> |A ∪ B| = 6
+  Jaccard:    2 / 6 = 0.33
+
+Par 2: Ana e Caio
+  Intersecao: { cinema, games } -> |A ∩ B| = 2
+  Uniao:      { rock, jazz, cinema, games, tecnologia } -> |A ∪ B| = 5
+  Jaccard:    2 / 5 = 0.40
+
+Par 3: Bia e Caio
+  Intersecao: { cinema } -> |A ∩ B| = 1
+  Uniao:      { jazz, cinema, series, viagens, games, tecnologia } -> |A ∪ B| = 6
+  Jaccard:    1 / 6 = 0.17
+
+----------------------------------------------------------
+[Resultado]
+Maior afinidade com a Ana: Caio (Indice: 0.40)
+Recomendacao: Caio
+
+```
