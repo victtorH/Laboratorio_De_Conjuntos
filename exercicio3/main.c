@@ -14,7 +14,7 @@
  * - A ordem dos elementos não altera o conjunto: {rock, jazz} == {jazz, rock}.
  * 
  * Na nossa implementação em C:
- * - 'nome': identificador legível (ex: "Ana", "Ana ∩ Bia").
+ * - 'nome': identificador legível (ex: "Ana", "Bia").
  * - 'itens': matriz estática de strings para armazenar os elementos.
  * - 'cardinalidade': quantidade atual de elementos do conjunto (|C|).
  */
@@ -71,17 +71,32 @@ void adicionar_elemento(Conjunto *c, const char *elemento) {
 }
 
 /*
- * Imprime os elementos do conjunto na notação matemática padrão: { "a", "b", "c" }
+ * Imprime apenas os elementos formatados entre chaves: { item1, item2, item3 }
  */
-void imprimir_conjunto(const Conjunto *c) {
-    printf("%s = { ", c->nome);
+void imprimir_elementos(const Conjunto *c) {
+    printf("{ ");
     for (int i = 0; i < c->cardinalidade; i++) {
-        printf("\"%s\"", c->itens[i]);
+        printf("%s", c->itens[i]);
         if (i < c->cardinalidade - 1) {
             printf(", ");
         }
     }
-    printf(" }  [Cardinalidade: %d]\n", c->cardinalidade);
+    printf(" }");
+}
+
+/*
+ * Imprime um usuário e seu conjunto na seção de Entrada
+ * Formato: - Nome:  { item1, item2 } (N itens)
+ */
+void imprimir_usuario_entrada(const Conjunto *c) {
+    printf("- %-5s { ", c->nome);
+    for (int i = 0; i < c->cardinalidade; i++) {
+        printf("%s", c->itens[i]);
+        if (i < c->cardinalidade - 1) {
+            printf(", ");
+        }
+    }
+    printf(" } (%d itens)\n", c->cardinalidade);
 }
 
 /*
@@ -120,7 +135,7 @@ void calcular_uniao(const Conjunto *A, const Conjunto *B, Conjunto *resultado) {
         adicionar_elemento(resultado, A->itens[i]);
     }
 
-    // 2. Insere os elementos de B (a função adicionar_elemento impede duplicatas)
+    // 2. Insere os elementos de B (adicionar_elemento impede repetições)
     for (int i = 0; i < B->cardinalidade; i++) {
         adicionar_elemento(resultado, B->itens[i]);
     }
@@ -134,11 +149,6 @@ void calcular_uniao(const Conjunto *A, const Conjunto *B, Conjunto *resultado) {
  *            |A ∩ B|       (cardinalidade da interseção)
  * J(A, B) = ---------
  *            |A ∪ B|       (cardinalidade da união)
- *
- * Propriedades matemáticas:
- * - 0 <= J(A, B) <= 1
- * - J(A, B) = 0: Conjuntos disjuntos (A ∩ B = ∅)
- * - J(A, B) = 1: Conjuntos idênticos (A = B)
  */
 double calcular_jaccard(int card_intersecao, int card_uniao) {
     if (card_uniao == 0) {
@@ -148,10 +158,9 @@ double calcular_jaccard(int card_intersecao, int card_uniao) {
 }
 
 /*
- * Executa a análise comparativa completa de afinidade entre dois usuários.
- * Retorna o índice de Jaccard calculado.
+ * Executa o cálculo de afinidade entre dois usuários e imprime no formato exato solicitado.
  */
-double analisar_par(const Conjunto *A, const Conjunto *B) {
+double analisar_par(int numero_par, const Conjunto *A, const Conjunto *B) {
     Conjunto inter, uni;
 
     calcular_intersecao(A, B, &inter);
@@ -159,84 +168,74 @@ double analisar_par(const Conjunto *A, const Conjunto *B) {
 
     double jaccard = calcular_jaccard(inter.cardinalidade, uni.cardinalidade);
 
-    printf("----------------------------------------------------------------------\n");
-    printf(">> Analisando Par: [%s] e [%s]\n", A->nome, B->nome);
-    printf("   * ");
-    imprimir_conjunto(&inter);
-    printf("   * ");
-    imprimir_conjunto(&uni);
-    printf("   * Calculo Jaccard: |%s ∩ %s| / |%s ∪ %s| = %d/%d\n", 
-           A->nome, B->nome, A->nome, B->nome, inter.cardinalidade, uni.cardinalidade);
-    printf("   * Indice de Jaccard: %.2f (%.4f)\n", jaccard, jaccard);
+    printf("Par %d: %s e %s\n", numero_par, A->nome, B->nome);
+    printf("  Intersecao: ");
+    imprimir_elementos(&inter);
+    printf(" -> |A ∩ B| = %d\n", inter.cardinalidade);
+
+    printf("  Uniao:      ");
+    imprimir_elementos(&uni);
+    printf(" -> |A ∪ B| = %d\n", uni.cardinalidade);
+
+    printf("  Jaccard:    %d / %d = %.2f\n\n", inter.cardinalidade, uni.cardinalidade, jaccard);
 
     return jaccard;
 }
 
 int main(void) {
-    printf("======================================================================\n");
-    printf("  FATEC OSASCO - DSM | MATEMATICA PARA COMPUTACAO\n");
-    printf("  Parte 3: Mini-projeto - Sistema de Recomendacao por Interesses\n");
-    printf("  Metrica: Indice de Similaridade de Jaccard [ J(A,B) = |A∩B| / |A∪B| ]\n");
-    printf("======================================================================\n\n");
+    printf("=== EXERCICIO 3: RECOMENDACAO POR INTERESSES (JACCARD) ===\n\n");
 
     // 1. Definição e inicialização dos conjuntos de teste do enunciado
     Conjunto ana, bia, caio;
 
-    inicializar_conjunto(&ana, "Ana");
+    inicializar_conjunto(&ana, "Ana:");
     adicionar_elemento(&ana, "rock");
     adicionar_elemento(&ana, "jazz");
     adicionar_elemento(&ana, "cinema");
     adicionar_elemento(&ana, "games");
 
-    inicializar_conjunto(&bia, "Bia");
+    inicializar_conjunto(&bia, "Bia:");
     adicionar_elemento(&bia, "jazz");
     adicionar_elemento(&bia, "cinema");
     adicionar_elemento(&bia, "series");
     adicionar_elemento(&bia, "viagens");
 
-    inicializar_conjunto(&caio, "Caio");
+    inicializar_conjunto(&caio, "Caio:");
     adicionar_elemento(&caio, "games");
     adicionar_elemento(&caio, "tecnologia");
     adicionar_elemento(&caio, "cinema");
 
-    // 2. Exibição dos dados de entrada
-    printf("[1] CONJUNTOS DE INTERESSES DOS USUARIOS:\n");
-    printf("    "); imprimir_conjunto(&ana);
-    printf("    "); imprimir_conjunto(&bia);
-    printf("    "); imprimir_conjunto(&caio);
-    printf("\n");
+    // 2. Exibição das entradas
+    printf("[Entrada - Interesses]\n");
+    imprimir_usuario_entrada(&ana);
+    imprimir_usuario_entrada(&bia);
+    imprimir_usuario_entrada(&caio);
 
-    // 3. Execução dos testes e cálculo dos pares
-    printf("[2] CALCULO DAS OPERACOES ENTRE TODOS OS PARES:\n");
-    double jaccard_ana_bia  = analisar_par(&ana, &bia);
-    double jaccard_ana_caio = analisar_par(&ana, &caio);
-    double jaccard_bia_caio = analisar_par(&bia, &caio);
-    printf("----------------------------------------------------------------------\n\n");
+    // Ajusta nomes para a exibição dos cálculos dos pares
+    strcpy(ana.nome, "Ana");
+    strcpy(bia.nome, "Bia");
+    strcpy(caio.nome, "Caio");
 
-    // 4. Comparação e Tomada de Decisão de Recomendação para a Ana
-    printf("[3] RESUMO DE AFINIDADE GERAL:\n");
-    printf("    - Par (Ana e Bia):   %.2f (2/6 ≈ 0.33)\n", jaccard_ana_bia);
-    printf("    - Par (Ana e Caio):  %.2f (2/5 = 0.40)\n", jaccard_ana_caio);
-    printf("    - Par (Bia e Caio):  %.2f (1/6 ≈ 0.17)\n\n", jaccard_bia_caio);
+    printf("\n----------------------------------------------------------\n");
+    printf("[Calculos de Afinidade]\n\n");
 
-    printf("[4] SISTEMA DE RECOMENDACAO PARA A ANA:\n");
-    if (jaccard_ana_caio > jaccard_ana_bia) {
-        printf("    ==> RECOMENDACAO: [Caio]\n");
-        printf("    Justificativa Teorica:\n");
-        printf("    - Afinidade com Caio (0.40) > Afinidade com Bia (0.33).\n");
-        printf("    - A intersecao de Ana e Caio possui 2 interesses compartilhados (games, cinema)\n");
-        printf("      em uma uniao de apenas 5 itens no total (2/5 = 0.40 = 40%% de similaridade).\n");
-        printf("    - Com Bia, embora haja 2 interesses comuns (jazz, cinema), a uniao e mais\n");
-        printf("      dispersa com 6 itens (2/6 ≈ 0.33 = 33.3%% de similaridade).\n");
-    } else if (jaccard_ana_bia > jaccard_ana_caio) {
-        printf("    ==> RECOMENDACAO: [Bia]\n");
+    // 3. Cálculos de cada par
+    double jaccard_ana_bia  = analisar_par(1, &ana, &bia);
+    double jaccard_ana_caio = analisar_par(2, &ana, &caio);
+    double jaccard_bia_caio = analisar_par(3, &bia, &caio);
+    (void)jaccard_bia_caio; // Uso implícito pelo enunciado
+
+    // 4. Comparação e Resultado
+    printf("----------------------------------------------------------\n");
+    printf("[Resultado]\n");
+
+    if (jaccard_ana_caio >= jaccard_ana_bia) {
+        printf("Maior afinidade com a Ana: Caio (Indice: %.2f)\n", jaccard_ana_caio);
+        printf("Recomendacao: Caio\n");
     } else {
-        printf("    ==> Empate na afinidade entre Bia e Caio.\n");
+        printf("Maior afinidade com a Ana: Bia (Indice: %.2f)\n", jaccard_ana_bia);
+        printf("Recomendacao: Bia\n");
     }
-
-    printf("\n======================================================================\n");
-    printf("Conclusao: Todos os resultados conferem perfeitamente com o gabarito!\n");
-    printf("======================================================================\n");
 
     return 0;
 }
