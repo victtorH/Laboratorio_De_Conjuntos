@@ -44,33 +44,25 @@ docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. &
 
 #### Caso Geral: Menu e Operações Principais
 
-> **[PRINT OBRIGATÓRIO AQUI]**
-> Tirar print do menu interativo executando operações gerais (União, Interseção, Diferença, Cardinalidade).
-> Salvar como: `docs/img/exe1_caso_geral.png`
+![Caso Geral](imgs/exe1_caso_geral.png)
 
 #### Caso de Teste 1: Conjunto Vazio (A = ∅, B = {1, 2})
 
-> **[PRINT OBRIGATÓRIO AQUI]**
-> Tirar print da execução mostrando que A é vazio, A ∪ B = {1, 2}, A ∩ B = ∅ e A ⊆ B é verdadeiro.
-> Salvar como: `docs/img/exe1_vazio.png`
+![Conjunto Vazio](imgs/exe1_vazio.png)
 
 #### Caso de Teste 2: Conjuntos Iguais (A = B = {1, 2, 3})
 
-> **[PRINT OBRIGATÓRIO AQUI]**
-> Tirar print mostrando A - B = ∅ e a inclusão (A ⊆ B verdadeiro, A ⊂ B falso).
-> Salvar como: `docs/img/exe1_iguais.png`
+![Conjuntos Iguais](imgs/exe1_iguais.png)
+
 
 #### Caso de Teste 3: Conjuntos Disjuntos (A = {1, 2}, B = {3, 4})
 
-> **[PRINT OBRIGATÓRIO AQUI]**
-> Tirar print mostrando A ∩ B = ∅ e a união completa sem repetições.
-> Salvar como: `docs/img/exe1_disjuntos.png`
+![Conjuntos Disjuntos](imgs/exe1_disjuntos.png)
+
 
 #### Caso de Teste 4: Elementos Repetidos na Entrada (A = {1, 1, 1, 2})
 
-> **[PRINT OBRIGATÓRIO AQUI]**
-> Tirar print comprovando que as duplicatas foram descartadas, resultando em |A| = 2.
-> Salvar como: `docs/img/exe1_repetidos.png`
+![Elementos Repetidos ](imgs/exe1_repetidos.png)
 
 ---
 
@@ -86,21 +78,16 @@ docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. &
 
 #### Teste 1: Dízima Periódica e Fração Geratriz (Entrada: 1,2(5))
 
-> **[PRINT OBRIGATÓRIO AQUI]**
-> Tirar print do cálculo da fração geratriz 113/90 e da classificação nos conjuntos Q e R.
-> Salvar como: `docs/img/exe2_dizima.png`
+![Dizima Periodica e Fração Geratriz](imgs/exe2_dizima.png)
 
 #### Teste 2: Inteiros Negativos e Frações (-3, 3/4, -5/2, 6/3)
 
-> **[PRINT OBRIGATÓRIO AQUI]**
-> Tirar print classificando números negativos (Z, Q, R) e frações irredutíveis/redutíveis.
-> Salvar como: `docs/img/exe2_fracoes.png`
+![Inteiros Negativos e Fração](imgs/exe2_fracoes.png)
+
 
 #### Teste 3: Raízes Exatas e Irracionais (√9 e √2)
 
-> **[PRINT OBRIGATÓRIO AQUI]**
-> Tirar print classificando √9 como natural/inteiro (3) e √2 como irracional (I, R).
-> Salvar como: `docs/img/exe2_raizes.png`
+![Raízes Exatas e Irracionais](imgs/exe2_raizes.png)
 
 ---
 
