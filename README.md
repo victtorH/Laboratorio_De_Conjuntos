@@ -16,19 +16,24 @@ git clone [https://github.com/victtorH/Laboratorio_De_Conjuntos.git](https://git
 cd Laboratorio_De_Conjuntos
 
 docker compose build
-
+```
 # -- Executando os Exercicios --
 
-# Exercício 1
-docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe1"
+* **Para rodar o Exercício 1:**
+  ```bash
+  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe1"
+  ```
 
-# Exercício 2
-docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe2"
+* **Para rodar o Exercício 2:**
+  ```bash
+  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe2"
+  ```
 
-# Exercício 3
-docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe3"
+* **Para rodar o Exercício 3:**
+  ```bash
+  docker compose run --rm compiler sh -c "mkdir -p build && cd build && cmake .. && make && ./exe3"
+  ```
 
-```
 
 ---
 
